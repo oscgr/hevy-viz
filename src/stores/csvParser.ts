@@ -1,7 +1,6 @@
-import {computed, ref} from "vue";
+import {computed} from "vue";
 import Papa from 'papaparse';
 import {DateTime} from "luxon";
-import XLSX from "xlsx";
 
 export interface CsvDataRow {
   start_time: Date
@@ -16,7 +15,6 @@ export interface CsvDataRow {
   duration_seconds?: number
 }
 
-const _data = ref<CsvDataRow[]>([])
 
 const useCsvParser = () => {
 
@@ -33,13 +31,6 @@ const useCsvParser = () => {
         distance_km: parseNumber(item.distance_km),
         duration_seconds: parseNumber(item.duration_seconds),
       }))
-      console.log(data.value)
-      const worksheet = XLSX.utils.json_to_sheet(_data.value);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
-      XLSX.writeFile(workbook, "workouts.xlsx", {compression: true});
-
-
       return true
     } catch (e: any) {
       return 'File could not be parsed.'

@@ -5,20 +5,21 @@
 
 <script lang="ts" setup>
 import {ref} from "vue";
-import useCsvParser from "@/stores/csvParser.ts";
-import {isString} from "es-toolkit";
+import useHevyData from "@/stores/hevyData.ts";
+import CsvParser from "@/utils/csvParser.ts";
 
 const loading = ref(false)
 const csv = ref<File>()
-const {parse, data} = useCsvParser()
+const {setData} = useHevyData()
 
 
 const onUpload = async (file: File) => {
-  const result = parse(await file.text())
-  if (isString(result)) {
-    console.error(result)
-    // todo display returned string as error
-  }
+  const results = CsvParser.parse(await file.text())
+  setData(results)
+  //if (isString(parsedData)) {
+  //  console.error(result)
+  // todo display returned string as error
+  //}
 }
 
 </script>

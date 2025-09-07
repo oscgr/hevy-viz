@@ -1,5 +1,6 @@
 <template>
-  <VFileUpload v-model="csv" :disabled="loading" divider-text="or choose locally" title="Drag and drop Hevy CSV file"
+  <VFileUpload v-model="csv" :disabled="loading" accept=".csv" divider-text="Or choose locally"
+               title="Drag and drop Hevy CSV file"
                @update:model-value="onUpload"/>
 </template>
 

@@ -1,6 +1,8 @@
 <template>
-  <v-btn :disabled="data.length === 0" color="primary" size="large" text="Download" variant="outlined"
-         @click="download"></v-btn>
+  <v-expand-transition>
+    <v-btn v-show="data.length > 0" size="large" text="Download" variant="outlined"
+           @click="download"></v-btn>
+  </v-expand-transition>
 </template>
 <script lang="ts" setup>
 import useHevyData from "@/stores/hevyData.ts";

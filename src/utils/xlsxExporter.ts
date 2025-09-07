@@ -1,4 +1,5 @@
 import XLSX from "xlsx";
+import type {CsvDataRow} from "@/stores/hevyData.ts";
 
 interface Options {
   fileName: string;
@@ -6,10 +7,14 @@ interface Options {
 }
 
 export default {
-  download(data: any[], options?: Partial<Options>) {
+  download(data: CsvDataRow[], options?: Partial<Options>) {
+    const fileName = options?.fileName || 'workouts.xlsx'
+    const worksheetName = options?.worksheetName || '"Data"'
+
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
-    XLSX.writeFile(workbook, "workouts.xlsx", {compression: true});
+    XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+
+    XLSX.writeFile(workbook, fileName, {compression: true});
   }
 }

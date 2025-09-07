@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-import FileImport from './components/FileImport.vue';
+import FileImport from "./components/FileImport.vue";
 import useHevyData from "@/stores/hevyData.ts";
 import DownloadBtn from "@/DownloadBtn.vue";
 
-const {data} = useHevyData()
+const { data } = useHevyData();
 </script>

@@ -8,9 +8,9 @@
 import useHevyData from "@/stores/hevyData.ts";
 import XlsxExporter from "@/utils/xlsxExporter.ts";
 
-const {data} = useHevyData();
+const { data } = useHevyData();
 
 const download = () => {
-  XlsxExporter.download(data.value, {})
-}
+	XlsxExporter.download(data.value, {});
+};
 </script>

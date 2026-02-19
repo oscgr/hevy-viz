@@ -5,14 +5,14 @@
  */
 // Plugins
 
-// Components
-import App from "./App.vue";
-
 // Composables
-import { createApp } from "vue";
+import { createApp } from 'vue'
 
+import vuetify from '@/plugins/vuetify.ts'
+
+// Components
+import App from './App.vue'
 // Styles
-import "unfonts.css";
-import vuetify from "@/plugins/vuetify.ts";
+import 'unfonts.css'
 
-const app = createApp(App).use(vuetify).mount("#app");
+createApp(App).use(vuetify).mount('#app')

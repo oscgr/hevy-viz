@@ -1,17 +1,17 @@
-import {DateTime} from "luxon";
-import Papa from "papaparse";
-import type {CsvDataRow} from "@/stores/hevyData.ts";
+import type { CsvDataRow } from '@/stores/hevyData.ts'
+import { DateTime } from 'luxon'
+import Papa from 'papaparse'
 
 interface RawImportRow {
-  title: string;
-  exercise_title: string;
-  start_time: string;
-  end_time: string;
-  weight_kg?: string;
+  title: string
+  exercise_title: string
+  start_time: string
+  end_time: string
+  weight_kg?: string
   reps?: string
-  rpe?: string;
-  distance_km?: string;
-  duration_seconds?: string;
+  rpe?: string
+  distance_km?: string
+  duration_seconds?: string
   exercise_notes?: string
   set_type?: 'normal' | 'warmup' | 'dropset' | 'failure'
   set_index?: string
@@ -20,17 +20,17 @@ interface RawImportRow {
 
 export default {
   parse(content: string) {
-    console.time("Import duration");
+    console.time('Import duration')
     const raw = Papa.parse<RawImportRow>(content, {
-      delimiter: ",",
+      delimiter: ',',
       header: true,
-    }).data;
+    }).data
     console.debug('parsing file with rows', raw)
 
     const results = raw.map(
-      (item) =>
+      item =>
         ({
-          //...item, // todo check all possibilities
+          // ...item, // todo check all possibilities
           startDateTime: this.parseDateTime(item.start_time),
           endDateTime: this.parseDateTime(item.end_time),
           weightInKilograms: this.parseNumber(item.weight_kg),
@@ -46,26 +46,28 @@ export default {
           superset: this.parseNumber(item.superset_id),
         }) satisfies CsvDataRow,
     )
-    console.timeEnd('Import duration');
-    console.debug(`Import finished - ${results.length} rows`);
+    console.timeEnd('Import duration')
+    console.debug(`Import finished - ${results.length} rows`)
     console.debug('results', results)
-    return results;
+    return results
   },
   parseDateTime(entry: string) {
-    if (!entry || entry === "")
+    if (!entry || entry === '')
       throw new Error('Invalid date time - empty string')
-    const dt = DateTime.fromFormat(entry, "d LLL yyyy, HH:mm").toISO();
+    const dt = DateTime.fromFormat(entry, 'd LLL yyyy, HH:mm').toISO()
     if (!dt)
       throw new Error(`Invalid date time - tried to parse "${entry}" as "d LLL yyyy, HH:mm`)
 
     return dt
   },
   parseString<T extends string | undefined>(entry: T): T {
-    if (!entry || entry === "") return
+    if (!entry || entry === '')
+      return
     return entry
   },
   parseNumber(entry?: string): number | undefined {
-    if (!entry || entry === "") return
-    return Number(entry);
+    if (!entry || entry === '')
+      return
+    return Number(entry)
   },
-};
+}

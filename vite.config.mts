@@ -1,19 +1,19 @@
+import { fileURLToPath, URL } from 'node:url'
 // Plugins
 import Vue from '@vitejs/plugin-vue'
-import Vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
 import Fonts from 'unplugin-fonts/vite'
 
 // Utilities
-import {defineConfig} from 'vite'
-import {fileURLToPath, URL} from 'node:url'
-import mkcert from "vite-plugin-mkcert";
+import { defineConfig } from 'vite'
+import mkcert from 'vite-plugin-mkcert'
+import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     mkcert(),
     Vue({
-      template: {transformAssetUrls},
+      template: { transformAssetUrls },
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify(),
@@ -32,7 +32,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['vuetify'],
   },
-  define: {'process.env': {}},
+  define: { 'process.env': {} },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('src', import.meta.url)),

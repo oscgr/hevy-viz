@@ -4,10 +4,17 @@
       <v-container class="fill-height" max-width="900">
         <v-row>
           <v-col cols="12">
-            <FileImport/>
-          </v-col>
-          <v-col class="d-flex justify-center" cols="12">
-            <DownloadBtn/>
+            <v-stepper :items="['Import', 'Download']">
+              <template v-slot:item.1>
+                <FileImport/>
+              </template>
+              <template v-slot:item.2>
+                <div class="d-flex justify-center">
+
+              <DownloadBtn/>
+                </div>
+              </template>
+            </v-stepper>
           </v-col>
         </v-row>
       </v-container>
@@ -16,9 +23,9 @@
 </template>
 
 <script lang="ts" setup>
-import FileImport from "./components/FileImport.vue";
-import useHevyData from "@/stores/hevyData.ts";
-import DownloadBtn from "@/DownloadBtn.vue";
+import DownloadBtn from "@/components/DownloadBtn.vue";
+import FileImport from "@/components/FileImport.vue";
+import useHevyData from "@/stores/hevyData";
 
-const { data } = useHevyData();
+const {data} = useHevyData();
 </script>

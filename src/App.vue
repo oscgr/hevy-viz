@@ -1,28 +1,42 @@
 <script lang="ts" setup>
-/* eslint-disable vue/valid-v-slot */
-import DownloadBtn from '@/components/DownloadBtn.vue'
-import FileImport from '@/components/FileImport.vue'
+import { mdiGithub, mdiMoonWaningCrescent, mdiWeatherSunny } from '@mdi/js'
+import { useLocale, useTheme } from 'vuetify'
+import { VFadeTransition } from 'vuetify/components'
+
+const theme = useTheme()
+const { t } = useLocale()
 </script>
 
 <template>
   <v-app>
+    <v-app-bar density="compact">
+      <v-spacer />
+      <router-link :to="{ name: 'Home' }" class="text-h5">
+        Heavy VIZ
+      </router-link>
+      <v-spacer />
+      <v-btn
+        v-tooltip="t('$vuetify.custom.app.themeTooltip')"
+        :icon="theme.current.value.dark ? mdiMoonWaningCrescent : mdiWeatherSunny"
+        flat
+        @click="theme.toggle(['light', 'dark'])"
+      />
+    </v-app-bar>
     <v-main>
-      <v-container class="fill-height" max-width="900">
-        <v-row>
-          <v-col cols="12">
-            <v-stepper :items="['Import', 'Download']">
-              <template #item.1>
-                <FileImport />
-              </template>
-              <template #item.2>
-                <div class="d-flex justify-center">
-                  <DownloadBtn />
-                </div>
-              </template>
-            </v-stepper>
-          </v-col>
-        </v-row>
-      </v-container>
+      <router-view v-slot="{ Component, route }">
+        <component :is="route.meta.transition || VFadeTransition" hide-on-leave>
+          <component :is="Component" />
+        </component>
+      </router-view>
     </v-main>
+    <v-footer app>
+      <v-spacer />
+      <v-btn
+        :icon="mdiGithub"
+        flat
+        href="https://github.com/oscgr/hevy-viz"
+        target="_blank"
+      />
+    </v-footer>
   </v-app>
 </template>

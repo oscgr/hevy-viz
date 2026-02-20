@@ -19,9 +19,11 @@ export interface CsvDataRow {
   superset?: number
 }
 
+// todo switch to dexie
 const _data = useLocalStorage<CsvDataRow[]>('data', [], {})
 
 function useHevyData() {
+  const hasData = computed(() => _data.value.length > 0)
   const setData = (rows: CsvDataRow[]) => {
     _data.value = rows
   }
@@ -32,6 +34,7 @@ function useHevyData() {
 
   return {
     data: computed(() => _data.value),
+    hasData,
     setData,
     download,
   }

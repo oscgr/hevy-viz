@@ -1,0 +1,5 @@
+@use 'sass:string';
+@use 'vuetify/settings' with (
+  $body-font-family: string.unquote('"Oswald", sans-serif'),
+  $heading-font-family: string.unquote('"Fugaz One", sans-serif')
+);

@@ -8,11 +8,15 @@
 // Composables
 import { createApp } from 'vue'
 
-import vuetify from '@/plugins/vuetify.ts'
+import { router } from '@/plugins/router.ts'
 
+import vuetify from '@/plugins/vuetify.ts'
 // Components
 import App from './App.vue'
 // Styles
 import 'unfonts.css'
 
-createApp(App).use(vuetify).mount('#app')
+createApp(App)
+  .use(vuetify)
+  .use(router)
+  .mount('#app')

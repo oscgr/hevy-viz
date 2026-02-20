@@ -16,14 +16,24 @@ export default defineConfig({
       template: { transformAssetUrls },
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
-    Vuetify(),
+    Vuetify({
+      styles: {
+        configFile: 'src/styles/settings.scss',
+      },
+
+    }),
     Fonts({
       fontsource: {
         families: [
           {
-            name: 'Roboto',
-            weights: [100, 300, 400, 500, 700, 900],
-            styles: ['normal', 'italic'],
+            name: 'Oswald',
+            weights: [200, 300, 400, 500, 600, 700],
+            styles: ['normal'],
+          },
+          {
+            name: 'Fugaz One',
+            weights: [400],
+            styles: ['normal'],
           },
         ],
       },
@@ -49,15 +59,5 @@ export default defineConfig({
   },
   server: {
     port: 3535,
-  },
-  css: {
-    preprocessorOptions: {
-      sass: {
-        api: 'modern-compiler',
-      },
-      scss: {
-        api: 'modern-compiler',
-      },
-    },
   },
 })
